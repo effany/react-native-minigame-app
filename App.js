@@ -14,7 +14,8 @@ import Colors from './constants/colors';
 export default function App() {
   const [userNumber, setUserNumber ] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
-
+  const [guessRounds, setGuessRounds] = useState(0)
+ 
   // with usefonts, you can load fonts from the assets folder
   // the key is the name of the font and the value is the path to the font
   // useFonts returns an array of two values, the first is a boolean that tells us if the fonts are loaded or not
@@ -34,9 +35,15 @@ export default function App() {
     setGameIsOver(false)
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(numberOfRounds) {
     setGameIsOver(true);
+    setGuessRounds(numberOfRounds)
   } 
+
+  function startNewGameHandler() {
+    setUserNumber(null);
+    setGuessRounds(0);
+  }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler}/>;
 
@@ -45,7 +52,7 @@ export default function App() {
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRounds} onStartNewGame={startNewGameHandler}/>
   }
 
 
