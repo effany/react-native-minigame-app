@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useFonts } from 'expo-font';
 // AppLoading is used to show a loading screen while the fonts are being loaded
 import AppLoading from 'expo-app-loading';
+import {StatusBar}from 'expo-status-bar';
 
 import GameScreen from './screens/GameScreen';
 import Colors from './constants/colors';
@@ -21,6 +22,8 @@ export default function App() {
   // useFonts returns an array of two values, the first is a boolean that tells us if the fonts are loaded or not
   // the second value is a function that we can call to reload the fonts
   // we can use the array destructuring to get the values
+
+// the orientation is set to default in the file app.json, which means that the app will be displayed in portrait mode on mobile devices and in landscape mode on tablets. /
   const [fontsLoaded] = useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
@@ -57,7 +60,9 @@ export default function App() {
 
 
   return (
-    <LinearGradient colors={[Colors.primary700, Colors.accent500 ]} style={styles.rootScreen}>
+    <>
+      <StatusBar style='light'/>
+      <LinearGradient colors={[Colors.primary700, Colors.accent500 ]} style={styles.rootScreen}>
       <ImageBackground 
         source={require('./assets/images/background.png')} 
         resizeMode='cover'
@@ -67,9 +72,9 @@ export default function App() {
         <SafeAreaView style={styles.rootScreen}>
         {screen}
         </SafeAreaView>
-        
       </ImageBackground>
-    </LinearGradient>
+       </LinearGradient>
+    </>
   );
 }
 
